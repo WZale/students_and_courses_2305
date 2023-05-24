@@ -119,11 +119,45 @@ RSpec.describe Gradebook do
       expect(@student_2.grade).to eq(67)
 
       expected = {
-                  @course_2 => [83.67, 84],
-                  @course_3 => [60, 67]
-                }
-
+        @course_2 => [83.67, 84],
+        @course_3 => [60, 67]
+      }
+      
       expect(@gradebook.all_grades).to eq(expected)
     end
   end
+
+    describe "#students_in_range(min, max)" do
+      it "can find all students across all courses that have grades in a given range" do
+        @gradebook.add_course(@course_2)
+      @gradebook.add_course(@course_3)
+
+      @course_2.enroll(@student_3)
+      @student_3.log_score(95)
+      @student_3.log_score(80)
+      @student_3.log_score(76)
+      expect(@student_3.grade).to eq(83.67)
+      
+      @course_2.enroll(@student_4)
+      @student_4.log_score(96)
+      @student_4.log_score(76)
+      @student_4.log_score(80)
+      expect(@student_4.grade).to eq(84)
+      
+      @course_3.enroll(@student_1)
+      @student_1.log_score(60)
+      @student_1.log_score(50)
+      @student_1.log_score(70)
+      expect(@student_1.grade).to eq(60)
+
+      @course_3.enroll(@student_2)
+      @student_2.log_score(77)
+      @student_2.log_score(43)
+      @student_2.log_score(81)
+      expect(@student_2.grade).to eq(67)
+
+      expect(@gradebook.students_in_range(60, 70)).to eq([@student_1, @student_2])
+    end
+  end
+
 end
