@@ -6,8 +6,8 @@ RSpec.describe Course do
   before(:each) do
     @course = Course.new("Calculus", 2)
 
-    @student1 = Student.new({name: "Morgan", age: 21})
-    @student2 = Student.new({name: "Jordan", age: 29}) 
+    @student_1 = Student.new({name: "Morgan", age: 21})
+    @student_2 = Student.new({name: "Jordan", age: 29}) 
   end
 
   describe "#exists" do
@@ -28,10 +28,10 @@ RSpec.describe Course do
 
   describe "#enroll" do
     it "can enroll students in a course" do
-      @course.enroll(@student1)
-      @course.enroll(@student2)
+      @course.enroll(@student_1)
+      @course.enroll(@student_2)
 
-      expect(@course.students).to eq([@student1, @student2])
+      expect(@course.students).to eq([@student_1, @student_2])
 
       expect(@course.full?).to be(true)
     end
