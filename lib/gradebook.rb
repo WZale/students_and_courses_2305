@@ -36,4 +36,9 @@ class Gradebook
       grade_hash
   end
 
+  def students_in_range(min, max)
+    @courses.flat_map do |course|
+      course.students.find_all { |student| student.grade >= min && student.grade <= max }
+    end
+  end
 end
